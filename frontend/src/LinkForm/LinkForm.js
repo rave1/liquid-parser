@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import { Formik, Field, Form } from 'formik';
 import axios from 'axios';
+import { Container } from './LinkForm.styles';
 import { ItemCard } from '../ItemCard/ItemCard';
 
 export const LinkForm = () => {
@@ -9,6 +10,7 @@ export const LinkForm = () => {
   console.log(products)
   return (
     <>
+    <Container>
       <Formik
         initialValues={{
           url: 'https://example.com'
@@ -30,9 +32,12 @@ export const LinkForm = () => {
           <button type="submit">Submit</button>
         </Form>
       </Formik>
-      {products.length > 0 && products.map((each) => (
-        <ItemCard title={each.title} available={each.available} url={each.url} />
-      ))}
+      </Container>
+      <Container>
+        {products.length > 0 && products.map((each) => (
+          <ItemCard title={each.title} available={each.available} url={each.url} />
+        ))}
+      </Container>
     </>
 
 

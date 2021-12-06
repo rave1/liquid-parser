@@ -5,7 +5,6 @@ import { LinkForm } from './LinkForm/LinkForm'
 function App() {
   return (
     <div className="App">
-      Hi
       <LinkForm/>
     </div>
   );
