@@ -15,12 +15,24 @@ def parse_liquid():
 
     soup = BeautifulSoup(data.text, features='html.parser')
     select = soup.find('select').text.strip().split('\n')
-    picture = soup.find('a', class_='js-easyzoom-trigger').get('href')
+
+
     title = soup.find('h1', itemprop='name').text
+    picture = soup.find('img', alt=title)
+    print(picture['data-src'])
     return {
         'data': {
             'available': select,
-            'url': picture,
+            'url': picture['data-src'],
             'title': title
         }
     }
+
+@app.route('/save', methods=['POST'])
+def save_products():
+    data = request.get_json()
+    return data
+
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')

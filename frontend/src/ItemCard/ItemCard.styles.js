@@ -11,3 +11,7 @@ export const Container = styled.div`
     padding: 25px;
     border-radius: 25px;
 `
+
+export const FormInput = styled.div`
+    min-width: 120px;
+`
