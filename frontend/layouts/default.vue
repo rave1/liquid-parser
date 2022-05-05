@@ -58,6 +58,11 @@
     </v-navigation-drawer>
     <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
+      <v-switch
+        v-model="switch1"
+        :label="`Dark mode: ${switch1.toString()}`"
+        @click="setTheme()"
+      ></v-switch>
     </v-footer>
   </v-app>
 </template>
@@ -85,8 +90,14 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
+      switch1: true,
       title: 'Vuetify.js',
     }
   },
+  methods: {
+    setTheme() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    }
+  }
 }
 </script>
