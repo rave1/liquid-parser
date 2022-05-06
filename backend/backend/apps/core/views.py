@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 from core.models import Liquid
 from core.serializers import LiquidSerializer
@@ -13,6 +14,7 @@ class LiquidViewSet(viewsets.ModelViewSet):
     queryset = Liquid.objects.all()
     serializer_class = LiquidSerializer
     http_method_names = ['get', 'post']
+    permission_classes = (IsAuthenticated, )
 
     def create(self, request, *args, **kwargs):
         url = request.data['url']

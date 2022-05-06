@@ -30,6 +30,10 @@
         </v-card>
       </v-form>
     </v-col>
+    <v-alert v-if="error" border="left" type="error"
+      >Bitch you need to <nuxt-link to="/login">login</nuxt-link> or
+      <nuxt-link to="/regster">register</nuxt-link> first</v-alert
+    >
   </v-row>
 </template>
 
@@ -42,6 +46,7 @@ export default {
     liquids: [],
     loading: false,
     valid: true,
+    error: false,
     urlRules: [
       (v) => !!v || 'URL is required',
       (v) =>
@@ -53,18 +58,22 @@ export default {
   },
   methods: {
     parse() {
-      console.log(this.url)
-      this.loading = true
-      this.$refs.form.validate()
-      setTimeout(() => (this.loading = false), 2000)
-      this.$axios
-        .post('http://127.0.0.1:8000/api/parse/', {
-          url: this.url,
-        })
-        .catch((error) => console.log(error))
-      this.$axios
-        .get('http://127.0.0.1:8000/api/parse')
-        .then((res) => (this.liquids = res.data))
+      if (localStorage.getItem('token')) {
+        console.log(this.url)
+        this.loading = true
+        this.$refs.form.validate()
+        setTimeout(() => (this.loading = false), 2000)
+        this.$axios
+          .post('http://127.0.0.1:8000/api/parse/', {
+            url: this.url,
+          })
+          .catch((error) => console.log(error))
+        this.$axios
+          .get('http://127.0.0.1:8000/api/parse')
+          .then((res) => (this.liquids = res.data))
+      } else {
+        this.error = true
+      }
     },
   },
 }

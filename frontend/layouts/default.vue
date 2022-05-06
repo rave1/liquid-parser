@@ -78,13 +78,18 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Home',
           to: '/',
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-login',
           title: 'Login',
           to: '/login',
+        },
+        {
+          icon: 'mdi-account-plus',
+          title: 'Register',
+          to: '/register',
         },
       ],
       miniVariant: false,
@@ -97,7 +102,7 @@ export default {
   methods: {
     setTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
-    }
-  }
+    },
+  },
 }
 </script>
