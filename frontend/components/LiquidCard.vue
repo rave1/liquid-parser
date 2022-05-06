@@ -1,13 +1,18 @@
 <template>
   <v-card elevation="2" class="e4">
-    <v-img height="300" width="300" :src="liquid.url"> </v-img>
+    <v-img height="300" width="300" :src="liquid.picture"> </v-img>
     <v-card-title>{{ liquid.title }}</v-card-title>
     <v-select :items="liquid.available" label="Available"></v-select>
     <v-card-text>
       <v-container fluid>
         <v-row>
           <v-col cols="12">
-            <v-slider v-model="red" :max="20" label="R" class="align-center">
+            <v-slider
+              v-model="red"
+              :max="20"
+              label="Quantity"
+              class="align-center"
+            >
               <template v-slot:append>
                 <v-text-field
                   v-model="red"
