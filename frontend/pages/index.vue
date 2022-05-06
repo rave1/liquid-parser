@@ -1,14 +1,10 @@
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12">
-      <v-form
-      ref="form"
-      v-model="valid"
-      lazy-validation
-      >
+      <v-form ref="form" v-model="valid" lazy-validation>
         <v-card :loading="loading">
           <v-card-title class="headline"> Paste the link bitch </v-card-title>
-          <v-text-field 
+          <v-text-field
             label="URL"
             v-model="url"
             required
@@ -22,7 +18,12 @@
           </v-row>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="purple darken-1" @click="parse" elevation="11" :disabled="!valid">
+            <v-btn
+              color="purple darken-1"
+              @click="parse"
+              elevation="11"
+              :disabled="!valid"
+            >
               Submit
             </v-btn>
           </v-card-actions>
@@ -42,9 +43,10 @@ export default {
     loading: false,
     valid: true,
     urlRules: [
-      v => !!v || 'URL is required',
-      v => /^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/.test(v) || 'URL must be valid'
-    ]
+      (v) => !!v || 'URL is required',
+      (v) =>
+        /^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/.test(v) || 'URL must be valid',
+    ],
   }),
   mounted() {
     console.log('cipa')
@@ -56,10 +58,12 @@ export default {
       this.$refs.form.validate()
       setTimeout(() => (this.loading = false), 2000)
       this.$axios
-        .post('http://127.0.0.1:5000/', {
+        .post('http://127.0.0.1:8000/api/parse/', {
           url: this.url,
         })
         .catch((error) => console.log(error))
+      this.$axios
+        .get('http://127.0.0.1:8000/api/parse')
         .then((res) => (this.liquids = res.data))
     },
   },
