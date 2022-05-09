@@ -23,6 +23,9 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <v-btn depressed color="primary" @click="logout" v-if="isAuthenticated">
+        Logout
+      </v-btn>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -63,13 +66,18 @@
         :label="`Dark mode: ${switch1.toString()}`"
         @click="setTheme()"
       ></v-switch>
+      <span v-if="isAuthenticated"> hej hej </span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'DefaultLayout',
+  computed: {
+    ...mapGetters(['isAuthenticated', 'loggedInUser']),
+  },
   data() {
     return {
       clipped: false,
@@ -102,6 +110,9 @@ export default {
   methods: {
     setTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    },
+    async logout() {
+      await this.$auth.logout().then(() => this.$toast.success('Logged out!'))
     },
   },
 }

@@ -39,6 +39,7 @@
 
 <script>
 import LiquidCard from '../components/LiquidCard.vue'
+import { mapGetters } from 'vuex'
 export default {
   components: { LiquidCard },
   name: 'IndexPage',
@@ -56,9 +57,12 @@ export default {
   mounted() {
     console.log('cipa')
   },
+  computed: {
+    ...mapGetters(['isAuthenticated', 'loggedInUser']),
+  },
   methods: {
     parse() {
-      if (localStorage.getItem('token')) {
+      if (this.$auth.user) {
         console.log(this.url)
         this.loading = true
         this.$refs.form.validate()

@@ -72,19 +72,27 @@ export default {
     }
   },
   methods: {
-    register() {
+    async register() {
       const { username, password, passwordSecond } = this
-      this.$axios
-        .post('http://127.0.0.1:8000/api/register/', {
+      try {
+        await this.$axios.post('http://127.0.0.1:8000/api/register/', {
           email: username,
           password1: password,
           password2: passwordSecond,
         })
-        .then((res) => this.storeToken(res.data.token))
-    },
-    storeToken(token) {
-      if (process.client) {
-        localStorage.setItem('token', token)
+
+        await this.$auth
+          .loginWith('local', {
+            data: {
+              username: username,
+              password: password,
+            },
+          })
+          .then(() => this.$toast.success('Logged In!'))
+        this.$router.push('/')
+        // .then((res) => this.storeToken(res.data.token))
+      } catch (e) {
+        console.log(e)
       }
     },
   },
