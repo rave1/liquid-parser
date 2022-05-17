@@ -8,3 +8,5 @@ class Liquid(models.Model):
     available = models.JSONField(default=list)
     picture = models.URLField(default=None)
     title = models.CharField(max_length=128)
+    url = models.URLField(blank=True, null=True)
+

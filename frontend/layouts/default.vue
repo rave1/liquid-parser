@@ -112,7 +112,8 @@ export default {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
     },
     async logout() {
-      await this.$auth.logout().then(() => this.$toast.success('Logged out!'))
+      await this.$auth.logout().then(() => this.$toast.success('Logged out!').goAway(1500))
+      this.$router.push('/login')
     },
   },
 }

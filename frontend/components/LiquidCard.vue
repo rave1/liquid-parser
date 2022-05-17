@@ -23,6 +23,13 @@
               </template>
             </v-slider>
           </v-col>
+                      <v-btn
+              color="purple darken-1"
+              @click="addToCart(liquid)"
+              elevation="11"
+            >
+              Add to cart
+            </v-btn>
         </v-row>
       </v-container>
     </v-card-text>
@@ -30,7 +37,14 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
+  computed: {
+    cart(){
+      return this.$store.state.shoppingCart
+    }
+  },
   props: ['liquid'],
   data() {
     return {
@@ -39,6 +53,19 @@ export default {
       blue: 0,
     }
   },
+  methods: {
+    addToCart(liquid) {
+      console.log(this.red)
+      const data = {
+        id: liquid.id,
+        url: liquid.url,
+        quantity: this.red
+      }
+      this.$store.commit('addProductToCart', data)
+      this.$toast.success(`${this.red} products added to cart!`).goAway(1500)
+      
+    }
+  }
 }
 </script>
 

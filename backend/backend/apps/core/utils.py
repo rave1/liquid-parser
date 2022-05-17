@@ -15,5 +15,6 @@ def parse_liquid(url):
     return {
         'available': select,
         'picture': picture['data-src'],
-        'title': title
+        'title': title,
+        'url': url
     }
