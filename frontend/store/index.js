@@ -7,3 +7,16 @@ export const getters = {
     return state.auth.user
   }
 }
+
+export const state = {
+  products: [],
+  shoppingCart: []
+}
+
+export const mutations = {
+  addProductToCart(state, liquid){
+    // find cartItem
+    state.shoppingCart.push(liquid)
+    }
+
+  }

@@ -61,18 +61,19 @@ export default {
     ...mapGetters(['isAuthenticated', 'loggedInUser']),
   },
   methods: {
-    parse() {
+    async parse() {
       if (this.$auth.user) {
-        console.log(this.url)
         this.loading = true
-        this.$refs.form.validate()
         setTimeout(() => (this.loading = false), 2000)
-        this.$axios
-          .post('http://127.0.0.1:8000/api/parse/', {
-            url: this.url,
-          })
-          .catch((error) => console.log(error))
-        this.$axios
+        if (this.url) {
+          await this.$axios
+            .post('http://127.0.0.1:8000/api/parse/', {
+              url: this.url,
+            })
+            .catch((error) => console.log(error))
+          
+        }
+        await this.$axios
           .get('http://127.0.0.1:8000/api/parse')
           .then((res) => (this.liquids = res.data))
       } else {

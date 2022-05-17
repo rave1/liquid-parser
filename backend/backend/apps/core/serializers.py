@@ -7,5 +7,5 @@ class LiquidSerializer(serializers.ModelSerializer):
     class Meta:
         model = Liquid
         fields = (
-            'id', 'available', 'title', 'picture'
+            'id', 'available', 'title', 'picture', 'url'
         )
